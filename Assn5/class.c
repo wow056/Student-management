@@ -1,6 +1,6 @@
-#include "class.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "class.h"
 
 void init(LIST *plist){
 	plist->head = NULL;
@@ -26,7 +26,7 @@ void add(LIST *plist, STUDENT data){
 	plist->count++;
 }
 
-void remove(NODE *ptr, LIST *plist) {
+void remove_node(NODE *ptr, LIST *plist) {
 	if (ptr == plist->head) {
 		del(plist);
 	}
@@ -55,29 +55,55 @@ void swap(NODE *a, NODE *b) {
 }
 
 void insert(LIST *plist, NODE *destination, NODE *pick) {
-	if (pick == plist->head) {
-		plist->head = plist->head->next;
-		plist->head->prev = NULL;	//pick을 들어내는 과정
-
-
+	if (pick == destination) {//1. when pick is destination
+		return;
 	}
-	else if (destination == plist->head) {
-		pick->prev = destination->prev;
+	else if (pick->next == destination) {//2. When destination is next to pick
+		return;
+	}
+	else if (pick == plist->head) {//3. When pick is head of list
+		plist->head = pick->next;
+		plist->head->prev = NULL;//picking
+
 		pick->next = destination;
-		destination->prev = pick;
-		plist->head = pick;
+		pick->prev = destination->prev;//changing pointer in pick
+
+		destination->prev->next = pick;
+		destination->prev = pick;//inserting
 	}
-	
-	pick->prev->next = pick->next;
-	pick->next->prev = pick->prev;
-	destination->prev->next = pick;
-	pick->prev = destination->prev;
-	destination->prev = pick;
-	pick->next = destination;
+	else if (pick->next == NULL) {//4. When pick is tail of list
+		pick->prev->next = pick->next;//picking
+
+		pick->next = destination;
+		pick->prev = destination->prev;//changing pointer in pick
+		if (destination == plist->head) {
+			plist->head = pick;
+			destination->prev = pick;//inserting
+		}
+		else {
+			destination->prev->next = pick;
+			destination->prev = pick;//inserting
+		}
+	}
+	else {//5. else
+		pick->prev->next = pick->next;
+		pick->next->prev = pick->prev;//picking
+
+		pick->next = destination;
+		pick->prev = destination->prev;//changing pointer in pick
+		if (destination == plist->head) {
+			plist->head = pick;
+			destination->prev = pick;//inserting
+		}
+		else {
+			destination->prev->next = pick;
+			destination->prev = pick;//inserting
+		}
+	}
 }
 
 void insertion_sort(LIST *plist){
-	NODE *ptr, *pick, *mark;
+	NODE *ptr, *pick;
 	for (pick = plist->head; pick != NULL; pick = ptr->next) {
 		for (ptr = plist->head; ptr != pick; ptr = ptr->next) {
 			if (pick->data.height > ptr->data.height) {

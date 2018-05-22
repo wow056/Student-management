@@ -1,13 +1,7 @@
 #ifndef CLASS_H
 #define CLASS_H
 
-typedef struct student {
-	char name[20];
-	char gender;
-	int height; //positive intege[cm]
-	int score;
-	char email[30]; //identifier
-} STUDENT;
+#include "student.h"
 
 typedef struct node {
 	struct node *prev;
@@ -26,6 +20,8 @@ void show(const LIST *plist);
 void add(LIST *plist, STUDENT data);
 void del(LIST *plist);
 void swap(NODE *a, NODE *b);
-void insert(NODE *destination, NODE *pick);
+STUDENT pop(LIST *plist);
+void remove_node(NODE *ptr, LIST *plist);
+void insert(LIST *plist, NODE *destination, NODE *pick);
 void insertion_sort(LIST *plist);
-#endif
+#endif // !CLASS_H
