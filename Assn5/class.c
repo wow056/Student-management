@@ -26,7 +26,17 @@ void add(LIST *plist, STUDENT data){
 	plist->count++;
 }
 
-void remove(NODE
+void remove(NODE *ptr, LIST *plist) {
+	if (ptr == plist->head) {
+		del(plist);
+	}
+	else {
+		ptr->prev->next = ptr->next;
+		ptr->next->prev = ptr->prev;
+		free(ptr);
+		plist->count--;
+	}
+}
 
 void del(LIST *plist){
 	NODE *temp;
@@ -38,19 +48,30 @@ void del(LIST *plist){
 }
 
 void swap(NODE *a, NODE *b) {
-	NODE temp;
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	STUDENT temp;
+	temp = a->data;
+	a->data = b->data;
+	b->data = temp;
 }
 
 void insert(LIST *plist, NODE *destination, NODE *pick) {
 	if (pick == plist->head) {
+		plist->head = plist->head->next;
+		plist->head->prev = NULL;	//pick을 들어내는 과정
 
+
+	}
+	else if (destination == plist->head) {
+		pick->prev = destination->prev;
+		pick->next = destination;
+		destination->prev = pick;
+		plist->head = pick;
 	}
 	
 	pick->prev->next = pick->next;
 	pick->next->prev = pick->prev;
+	destination->prev->next = pick;
+	pick->prev = destination->prev;
 	destination->prev = pick;
 	pick->next = destination;
 }
@@ -60,7 +81,7 @@ void insertion_sort(LIST *plist){
 	for (pick = plist->head; pick != NULL; pick = ptr->next) {
 		for (ptr = plist->head; ptr != pick; ptr = ptr->next) {
 			if (pick->data.height > ptr->data.height) {
-				insert(ptr, pick);
+				insert(plist, ptr, pick);
 			}
 		}
 	}
