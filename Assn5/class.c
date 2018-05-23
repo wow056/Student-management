@@ -15,10 +15,13 @@ void show(const LIST *plist){
 void add(LIST *plist, STUDENT data){
 	NODE *temp;
 	temp = (NODE*)malloc(sizeof(NODE));
+
 	temp->prev = NULL;
 	temp->data = data;
 	temp->next = plist->head;
-	plist->head->prev = temp;
+	if (plist->head != NULL) {
+		temp->next->prev = temp;
+	}
 	plist->head = temp;
 	plist->count++;
 }
@@ -105,6 +108,9 @@ void insertion_sort(LIST *plist){
 		for (ptr = plist->head; ptr != pick; ptr = ptr->next) {
 			if (pick->data.height > ptr->data.height) {
 				insert(plist, ptr, pick);
+				system("cls");
+				show(plist);
+				system("pause");
 			}
 		}
 	}
