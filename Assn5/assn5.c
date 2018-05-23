@@ -23,6 +23,7 @@ int main(int argc,char *argv[]) {
 
 	file_to_list(f, &list);
 	show(&list);
+	system("pause");
 	insertion_sort(&list);
 	show(&list);
 

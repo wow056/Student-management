@@ -9,7 +9,7 @@ void show(const LIST *plist){
 	NODE *ptr;
 	printf("NAME\t\tGender\tHeight\tEmail\n");
 	for (ptr = plist->head; ptr != NULL; ptr = ptr->next)
-		printf("%s\t\t%c\t%d\t%s\n", ptr->data.name, ptr->data.gender, ptr->data.height, ptr->data.email);
+		printf("%s\t%c\t%d\t%s\n", ptr->data.name, ptr->data.gender, ptr->data.height, ptr->data.email);
 }
 
 void add(LIST *plist, STUDENT data){
@@ -108,9 +108,7 @@ void insertion_sort(LIST *plist){
 		for (ptr = plist->head; ptr != pick; ptr = ptr->next) {
 			if (pick->data.height > ptr->data.height) {
 				insert(plist, ptr, pick);
-				system("cls");
-				show(plist);
-				system("pause");
+				break;
 			}
 		}
 	}
