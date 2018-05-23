@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "class.h"
 
 void init(LIST *plist){
@@ -12,7 +10,6 @@ void show(const LIST *plist){
 	printf("NAME\t\tGender\tHeight\tEmail\n");
 	for (ptr = plist->head; ptr != NULL; ptr = ptr->next)
 		printf("%s\t\t%c\t%d\t%s\n", ptr->data.name, ptr->data.gender, ptr->data.height, ptr->data.email);
-	
 }
 
 void add(LIST *plist, STUDENT data){

@@ -1,6 +1,8 @@
 #ifndef CLASS_H
 #define CLASS_H
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "student.h"
 
 typedef struct node {
