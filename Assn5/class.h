@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "student.h"
 
 typedef struct node {
@@ -26,4 +27,5 @@ STUDENT pop(LIST *plist);
 void remove_node(NODE *ptr, LIST *plist);
 void insert(LIST *plist, NODE *destination, NODE *pick);
 void insertion_sort(LIST *plist);
+void file_to_list(FILE *f, LIST *plist);
 #endif // !CLASS_H

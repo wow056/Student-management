@@ -164,3 +164,16 @@ void sort(LIST *plist) {
 		}
 	}
 }
+
+void file_to_list(FILE *f, LIST *plist) {
+	STUDENT temp;
+	char buf[60];
+	int i, j;
+	while (fgets(buf, 60, f) != NULL) {
+		strcpy(temp.name, strtok(buf, "\t\n"));
+		temp.gender = strtok(NULL, "\t\n")[0];
+		temp.height = atoi(strtok(NULL, "\t\n"));
+		strcpy(temp.email, strtok(NULL, "\t\n"));
+		add(plist, temp);
+	}
+}

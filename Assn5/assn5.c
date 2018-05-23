@@ -1,21 +1,29 @@
 #include "class.h"
 #include "student.h"
 
+
+
 int main(int argc,char *argv[]) {
 	FILE *f;
 	LIST list;
 
+	init(&list);
+
 	if (argc == 1) {
-		f = fopen("student.txt", "r");
+		f = fopen("students.txt", "r");
 	}
 	else {
 		f = fopen(argv[1], "r");
 	}
 	if (f == NULL) {
-		printf("Could not open input file!");
+		printf("Could not open input file!\n");
+		system("pause");
 		return -1;
 	}
 
-	read_file(&list, f);
+	file_to_list(f, &list);
 	show(&list);
+
+	system("pause");
+	return 0;
 }
